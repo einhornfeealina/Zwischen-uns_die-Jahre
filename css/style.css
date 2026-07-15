@@ -75,7 +75,7 @@ h1, h2, h3, .heading {
 }
 
 .icon-btn {
-  position: fixed;
+  position: absolute;
   top: calc(var(--topbar-h) - 4px);
   left: 24px;
   background: none;
@@ -241,7 +241,7 @@ h1, h2, h3, .heading {
 .reader-nav {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 16px;
   margin-top: 56px;
   padding-top: 28px;
