@@ -127,6 +127,9 @@ h1, h2, h3, .heading {
 .poster-head .n-suffix {
   text-align: left;
 }
+.poster-head .k-word {
+  color: var(--bg);
+}
 .phead-wrap {
   text-align: right;
 }

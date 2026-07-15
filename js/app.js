@@ -19,7 +19,7 @@
   function posterHead(chapterNum, subNum) {
     return (
       '<div class="phead-wrap"><div class="poster-head">' +
-      '<div class="k-line"><span class="k-main">Kapitel ' + chapterNum + '</span><span class="k-suffix"></span></div>' +
+      '<div class="k-line"><span class="k-main"><span class="k-word">Kapitel </span>' + chapterNum + '</span><span class="k-suffix"></span></div>' +
       '<div class="n-line"><span class="n-main">– ' + chapterNum + '</span><span class="n-suffix">.' + subNum + '</span></div>' +
       '</div></div>'
     );
