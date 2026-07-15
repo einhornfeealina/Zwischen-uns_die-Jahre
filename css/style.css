@@ -1,0 +1,320 @@
+/* ---------------------------------------------------------
+   Fonts – Helvetica Neue LT Pro (lizenziert, lokal eingebettet)
+--------------------------------------------------------- */
+@font-face {
+  font-family: "HelveticaLTPro";
+  src: url("../fonts/HelveticaNeueLTPro-Bd.otf") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaLTPro";
+  src: url("../fonts/HelveticaNeueLTPro-Lt.otf") format("opentype");
+  font-weight: 300;
+  font-display: swap;
+}
+
+:root {
+  --bg: #000000;
+  --fg: #ffffff;
+  --fg-line: #ffffff;
+
+  --font-bold: "HelveticaLTPro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-light: "HelveticaLTPro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --reader-scale: 1;
+  --topbar-h: 56px;
+  --controls-h: 64px;
+
+  /* Verhältnis Überschrift:Fließtext wie in der Illustrator-Vorlage (20pt : 14pt) */
+  --fs-heading: calc(1em * 20 / 14);
+  --fs-body: 1em;
+}
+
+* { box-sizing: border-box; }
+
+button { font: inherit; color: inherit; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-light);
+  font-weight: 300;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+h1, h2, h3, .heading {
+  font-family: var(--font-bold);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1em;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------
+   Topbar
+--------------------------------------------------------- */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--topbar-h);
+  z-index: 40;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.92), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+.icon-btn {
+  position: fixed;
+  top: calc(var(--topbar-h) - 4px);
+  left: 24px;
+  background: none;
+  border: none;
+  color: var(--fg);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 41;
+  pointer-events: auto;
+}
+.icon-btn svg { width: 22px; height: 22px; }
+.icon-btn img { height: 30px; width: auto; display: block; }
+
+/* ---------------------------------------------------------
+   Main view
+--------------------------------------------------------- */
+#view {
+  padding-top: var(--topbar-h);
+  min-height: 100vh;
+}
+
+/* ---- Poster-style heading: KAPITEL N / – N.M ----
+   2-Spalten-Grid: Spalte 1 = "KAPITEL N" / "– N", rechtsbündig,
+   Spalte 2 = ".M", linksbündig -> die Kapitelziffer "N" steht
+   exakt untereinander (vor "KAPITEL N" und vor "– N.M").
+--------------------------------------------------------- */
+.poster-head {
+  display: inline-grid;
+  grid-template-columns: max-content max-content;
+}
+.poster-head .k-line,
+.poster-head .n-line {
+  display: contents;
+  font-family: var(--font-bold);
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.poster-head .k-main,
+.poster-head .n-main {
+  text-align: right;
+}
+.poster-head .k-suffix,
+.poster-head .n-suffix {
+  text-align: left;
+}
+.phead-wrap {
+  text-align: right;
+}
+
+/* ---- Home ---- */
+.home {
+  padding: 28px 24px calc(var(--controls-h) + 48px);
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* Breite wird per JS auf die tatsächliche Breite des Fragen-Rasters
+   gesetzt und dann zentriert -> Logo, Kapitel und Fragen bilden
+   einen Block, der als Ganzes mittig auf der Seite steht. */
+.logo-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 auto 140px;
+}
+
+.logo-block {
+  display: inline-block;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  visibility: hidden;
+}
+.logo-block.fitted { visibility: visible; }
+.logo-block .l1,
+.logo-block .l3 {
+  text-align: right;
+}
+.logo-block .l2 {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4em;
+}
+.logo-block h1 {
+  white-space: nowrap;
+}
+
+.entries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 290px));
+  align-items: start;
+  margin: 0 auto;
+  gap: 56px 40px;
+}
+
+.entry {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--fg);
+  text-align: right;
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--font-light);
+}
+
+.entry-inner {
+  display: block;
+  width: 100%;
+}
+
+.entry .k-line,
+.entry .n-line {
+  font-size: calc(1rem * 20 / 14);
+}
+
+.entry .entry-question {
+  margin: 18px 0 0;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--fg);
+  text-align: left;
+}
+
+.entry:active { opacity: 0.7; }
+
+/* ---- Reading view ---- */
+.reader {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 8px 24px calc(var(--controls-h) + 56px);
+  font-size: calc(1rem * var(--reader-scale));
+}
+
+.reader .phead-wrap {
+  text-align: right;
+  margin-bottom: 40px;
+}
+.reader .k-line,
+.reader .n-line {
+  font-size: var(--fs-heading);
+}
+
+.reader h2.sub-heading {
+  font-size: var(--fs-heading);
+  line-height: 1.12;
+  margin-bottom: 32px;
+}
+
+.reader p {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  margin: 0 0 1.3em;
+  font-weight: 300;
+}
+
+.reader-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--fg-line);
+}
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--fg);
+  font-family: var(--font-light);
+  cursor: pointer;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 48%;
+  text-align: left;
+}
+.nav-btn.next { flex-direction: row-reverse; text-align: right; }
+.nav-btn .nav-arrow {
+  height: 0.9em;
+  width: auto;
+  flex-shrink: 0;
+  display: block;
+}
+.nav-btn .nav-arrow.flip { transform: scaleX(-1); }
+.nav-btn .nav-text { display: flex; flex-direction: column; gap: 2px; }
+.nav-btn .nav-id {
+  font-family: var(--font-bold);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--fs-heading);
+}
+.nav-btn .nav-label { font-size: var(--fs-body); }
+.nav-btn:disabled { visibility: hidden; }
+
+/* ---------------------------------------------------------
+   Text size controls
+--------------------------------------------------------- */
+.text-controls {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--controls-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 30;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0));
+  transform: translateY(100%);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.text-controls.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.size-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--fg);
+  color: var(--fg);
+  border-radius: 20px;
+  padding: 9px 16px;
+  font-family: var(--font-bold);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.size-btn:active { background: rgba(255,255,255,0.25); }
+
+@media (min-width: 720px) {
+  .reader { max-width: 680px; }
+}
